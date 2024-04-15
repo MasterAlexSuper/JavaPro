@@ -11,5 +11,7 @@ public class Main {
         dogVasia.run(599);
         catVasia.swim(10);
         dogVasia.swim(10);
+        dogAnton.run(20);
+        dogCasia.swim(250);
     }
 }

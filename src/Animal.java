@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class Animal {
     private String name;
     private int maxDistSwim;
@@ -22,7 +20,7 @@ public class Animal {
             System.out.println(name + " swims " + dist + "m.");
 
         else
-            System.out.println(name + "can`t swim " + dist + "m.");
+            System.out.println(name + " can`t swim " + dist + "m.");
     }
 
     public Animal(String name, int maxDistRun, int maxDistSwim){
