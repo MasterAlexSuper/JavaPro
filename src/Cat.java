@@ -1,7 +1,6 @@
-public class Cat extends Animal {
-    public static int catCount = 0;
-    public Cat(String name) {
-                super(name, 200, 0);
-                catCount++;
+public class Cat extends Participant {
+
+    Cat(String name, int maxRun, float maxJump) {
+        super(name, maxRun, maxJump);
     }
 }
