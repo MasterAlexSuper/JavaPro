@@ -25,8 +25,7 @@ public class Main {
     }
 
     public static List<Object> toList(Object[] toConvert) {
-        List<Object> converted = new ArrayList<Object>(Arrays.asList(toConvert));
-        return converted;
+        return new ArrayList<Object>(Arrays.asList(toConvert));
     }
 
     public static List<Object> findUnique(Integer[] integers) {
