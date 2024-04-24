@@ -40,7 +40,7 @@ public class Main {
     }
 
     public static List<Integer> findUnique(ArrayList<Integer> integers) {
-        return new ArrayList<Integer>(new HashSet<>(integers));
+        return new ArrayList<>(new HashSet<>(integers));
     }
 
     public static void calcOccurance(List<String> words) {
