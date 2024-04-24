@@ -25,14 +25,13 @@ public class Main {
     }
 
     public static List<Object> toList(Object[] toConvert) {
-        List<Object> converted = new ArrayList<>();
-        converted.addAll(Arrays.asList(toConvert));
+        List<Object> converted = new ArrayList<Object>(Arrays.asList(toConvert));
         return converted;
     }
 
     public static List<Object> findUnique(Integer[] integers) {
         Set<Object> unique = new HashSet<>(toList(integers));
-        return new ArrayList<Object>(unique);
+        return new ArrayList<>(unique);
     }
 
     public static void calcOccurance(List<String> words) {
@@ -51,7 +50,7 @@ public class Main {
 
     public static List<OccuranceItem> findOccurance(List<String> words) {
         Set<String> unique = new HashSet<>(words);
-        List<OccuranceItem> occuranceItems = new ArrayList<OccuranceItem>();
+        List<OccuranceItem> occuranceItems = new ArrayList<>();
         for (String word : unique) {
             int currentOccurance = 0;
             for (String word2 : words) {

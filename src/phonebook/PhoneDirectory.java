@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class PhoneDirectory {
-    List<Record> records = new ArrayList<Record>();
+    List<Record> records = new ArrayList<>();
 
     // Add a record to PhoneDirectory
     public void addRecord(Record record) {
