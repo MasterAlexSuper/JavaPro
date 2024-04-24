@@ -1,114 +1,66 @@
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        String hello = "Hello World!";
-        ans(2);
-        findSymbolOccurance(hello, 'h');
-        ans(3);
-        System.out.println(findWordPosition("Apple", "Plant"));
-        ans(4);
-        System.out.println(stringReverse(hello));
-        ans(5);
-        System.out.println(isPalindrome("ERE"));
-        System.out.println(isPalindrome("Allo "));
-        System.out.println();
-        System.out.println("THE GAME");
-        game();
+        String[] words = new String[14];
+        Arrays.fill(words, "apple");
+        System.out.println("Occurance " + countOccurance(words, "apple"));
+        System.out.println(toList(words));
+        Integer[] integers = {3, 4, 5, 2, 4, 66, 3, 23, 6, 4};
+        System.out.println("Only unique ints: " + findUnique(integers));
+        List<String> words2 = List.of("apple", "bird", "fox", "fox", "apple", "apple", "bird", "bear", "bear", "cat", "frog", "frog", "frog", "frog", "frog");
+        calcOccurance(words2);
+        System.out.println(findOccurance(words2));
     }
 
 
-    public static void findSymbolOccurance(String str, char letter) {
+    public static int countOccurance(String[] words, String target) {
         int occurance = 0;
-
-        char[] chars = str.toLowerCase().toCharArray();
-        for (char character : chars) {
-            if (letter == character) {
-                occurance += 1;
+        for (String word : words) {
+            if (word.equals(target)) {
+                occurance++;
             }
         }
-        System.out.println("Occurrence \"" + letter + "\" in " + str + " = " + occurance);
-
+        return occurance;
     }
 
-    public static int findWordPosition(String source, String target) {
-        int pos;
-
-        pos = source.toLowerCase().indexOf(target.toLowerCase());
-        return pos;
+    public static List<Object> toList(Object[] toConvert) {
+        List<Object> converted = new ArrayList<>();
+        converted.addAll(Arrays.asList(toConvert));
+        return converted;
     }
 
-    public static String stringReverse(String str) {
-        StringBuilder reversed = new StringBuilder(str);
-        reversed.reverse();
-        return reversed.toString();
+    public static List<Object> findUnique(Integer[] integers) {
+        Set<Object> unique = new HashSet<>(toList(integers));
+        return new ArrayList<Object>(unique);
     }
 
-    public static boolean isPalindrome(String str) {
-        String reversed = stringReverse(str);
-        return reversed.equals(str);
-    }
+    public static void calcOccurance(List<String> words) {
+        Set<String> unique = new HashSet<>(words);
 
-    public static void game() {
-        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", " pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
-        Random random = new Random();
-        int rundomNum = random.nextInt(words.length);
-
-//        System.out.println(rundomNum);
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Let`s play a game, try to guess the word I thought");
-        System.out.println("It`s one of these:");
-        for (String fruit : words) {
-            System.out.print(fruit + ", ");
-        }
-        boolean isGuessed = false;
-
-        char[] secretArr = new char[15];
-        Arrays.fill(secretArr, '#');
-
-        while (!isGuessed) {
-
-            String secret = words[rundomNum];
-//            System.out.println(secret);
-            System.out.println("\nNow type your guess");
-            String guess = scanner.next();
-            guess = guess.trim();
-
-
-            if (guess.equals(secret)) {
-                System.out.println("Congrats, you won this game");
-                isGuessed = true;
-            } else {
-                helper(guess, secret, secretArr);
+        for (String word : unique) {
+            int currentOccurance = 0;
+            for (String word2 : words) {
+                if (word.equals(word2)) {
+                    currentOccurance++;
+                }
             }
+            System.out.println("\"" + word + "\"" + " occurance: " + currentOccurance);
         }
-
     }
 
-    public static void helper(String guess, String ans, char[] secretArr) {
-
-        char[] guessarr = guess.toCharArray();
-        char[] ansArr = ans.toCharArray();
-        int minLength = Math.min(guessarr.length, ansArr.length);
-        StringBuilder hint = new StringBuilder();
-
-        for (int i = 0; i < minLength; i++) {
-            if (guessarr[i] == ansArr[i] && secretArr[i] == '#') {
-                secretArr[i] = ansArr[i];
+    public static List<OccuranceItem> findOccurance(List<String> words) {
+        Set<String> unique = new HashSet<>(words);
+        List<OccuranceItem> occuranceItems = new ArrayList<OccuranceItem>();
+        for (String word : unique) {
+            int currentOccurance = 0;
+            for (String word2 : words) {
+                if (word.equals(word2)) {
+                    currentOccurance++;
+                }
             }
+            occuranceItems.add(new OccuranceItem(currentOccurance, word));
         }
-        for (char letter : secretArr) {
-            hint.append(letter);
-        }
-
-        System.out.println("Wrong look at the hint: " + hint);
-
-    }
-
-    public static void ans(int n) {
-        System.out.println("\nAnswer to task " + n);
+        return occuranceItems;
     }
 }
