@@ -1,12 +1,21 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 public class Main {
     public static void main(String[] args) {
         String[] words = new String[14];
         Arrays.fill(words, "apple");
         System.out.println("Occurance " + countOccurance(words, "apple"));
-        System.out.println(toList(words));
-        Integer[] integers = {3, 4, 5, 2, 4, 66, 3, 23, 6, 4};
+        String[] arr = {"a", "b"};
+        List<String> afterToList = toList(arr);
+        System.out.println(afterToList);
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.addAll(Arrays.asList(3, 4, 5, 2, 4, 66, 3, 23, 6, 4));
         System.out.println("Only unique ints: " + findUnique(integers));
         List<String> words2 = List.of("apple", "bird", "fox", "fox", "apple", "apple", "bird", "bear", "bear", "cat", "frog", "frog", "frog", "frog", "frog");
         calcOccurance(words2);
@@ -24,13 +33,14 @@ public class Main {
         return occurance;
     }
 
-    public static List<Object> toList(Object[] toConvert) {
-        return new ArrayList<Object>(Arrays.asList(toConvert));
+    public static <T> List<T> toList(T[] toConvert) {
+        List<T> converted = new ArrayList<>();
+        Collections.addAll(converted, toConvert);
+        return converted;
     }
 
-    public static List<Object> findUnique(Integer[] integers) {
-        Set<Object> unique = new HashSet<>(toList(integers));
-        return new ArrayList<>(unique);
+    public static List<Integer> findUnique(ArrayList<Integer> integers) {
+        return new ArrayList<Integer>(new HashSet<>(integers));
     }
 
     public static void calcOccurance(List<String> words) {

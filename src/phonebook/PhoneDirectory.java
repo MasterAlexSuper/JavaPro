@@ -14,23 +14,21 @@ public class PhoneDirectory {
 
     // Find first Record by name
     public Record find(String name) {
-        Record found = null;
         for (Record record : records) {
             if (name.equals(record.name)) {
-                found = record;
-                break;
+                return record;
             }
         }
-        return found;
+        return null;
     }
 
     // Find all Records by name
     public List<Record> findAll(String name) {
-        List<Record> found = null;
+        List<Record> found = new ArrayList<>();
         for (Record record : records) {
             if (name.equals(record.name)) {
                 found.add(record);
-            }
+            } else return null;
         }
         return found;
     }
