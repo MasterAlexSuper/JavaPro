@@ -25,7 +25,4 @@ public class Order {
                 '}';
     }
 
-    public String getClientName() {
-        return clientName;
-    }
 }
