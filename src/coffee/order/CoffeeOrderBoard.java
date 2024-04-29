@@ -13,47 +13,47 @@ public class CoffeeOrderBoard {
     }
 
 
-    public void deliver() {
+    public boolean isNotEmpty() {
         if (orders.isEmpty()) {
-            System.out.println("There are no more orders to deliver");
-            return;
+            System.out.println("There are no orders");
+            return false;
+        } else {
+            return true;
         }
-        Order order = orders.remove();
-        System.out.println(order + " was delivered");
+    }
+
+    public void deliver() {
+        if (isNotEmpty()) {
+            Order order = orders.remove();
+            System.out.println(order + " was delivered");
+        }
     }
 
     public void deliver(int id) {
-        if (orders.isEmpty()) {
-            System.out.println("There are no more orders to deliver");
-            return;
+        if (isNotEmpty()) {
+            boolean[] isFound = new boolean[]{false};
+            orders.removeIf(order -> {
+                if (order.getId() == id) {
+                    isFound[0] = true;
+                    System.out.println(order + " was delivered");
+                    return true;
+                }
+                return false;
+            });
         }
-        Queue<Order> newOrders = new LinkedList<>();
-        for (Order order : orders) {
-            if (order.getId() != id) {
-                newOrders.add(order);
-            }else System.out.println(order + " was delivered");
-        }
-        if (orders.size() == newOrders.size()) {
-            System.out.println("Order with id " + id + " does`t exist");
-        }
-        orders = newOrders;
-
     }
 
-    public void draw(){
-        if (orders.isEmpty()) {
-            System.out.println("There are no orders");
-            return;
+    public void draw() {
+        if (isNotEmpty()) {
+            System.out.println("==========");
+            System.out.println("Id | Name");
+            for (Order order : orders) {
+                System.out.println(order.getId() + " | " + order.getClient());
+            }
+            System.out.println("==========");
         }
-        System.out.println("==========");
-        System.out.println("Id | Name");
-        for (Order order : orders) {
-            System.out.println(order.getId() + " | " + order.getClient());
-        }
-        System.out.println("==========");
     }
-
-
+    
     @Override
     public String toString() {
         return "CoffeeOrderBoard{" +
@@ -63,16 +63,15 @@ public class CoffeeOrderBoard {
     }
 
 
-
-
-    public CoffeeOrderBoard() {}
-
+    public CoffeeOrderBoard() {
+    }
 
 
     public static void main(String[] args) {
 
         CoffeeOrderBoard coffeeOrderBoard = new CoffeeOrderBoard();
         coffeeOrderBoard.draw();
+        coffeeOrderBoard.deliver(1);
 
         coffeeOrderBoard.add("Alex");
         coffeeOrderBoard.add("Kirill");
