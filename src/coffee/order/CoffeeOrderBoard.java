@@ -31,10 +31,8 @@ public class CoffeeOrderBoard {
 
     public void deliver(int id) {
         if (isNotEmpty()) {
-            boolean[] isFound = new boolean[]{false};
             orders.removeIf(order -> {
                 if (order.getId() == id) {
-                    isFound[0] = true;
                     System.out.println(order + " was delivered");
                     return true;
                 }
@@ -53,7 +51,7 @@ public class CoffeeOrderBoard {
             System.out.println("==========");
         }
     }
-    
+
     @Override
     public String toString() {
         return "CoffeeOrderBoard{" +
