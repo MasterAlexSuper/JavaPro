@@ -1,6 +1,7 @@
 package hometask8;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Product {
@@ -50,9 +51,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "\n{" +
                 "type='" + type + '\'' +
                 ", price=" + price +
-                '}';
+                ", discount=" + discount +
+                ", creationDate=" + creationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +
+                "}";
     }
 }
