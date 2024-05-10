@@ -28,7 +28,7 @@ public class Main {
 //        1.2
 //        findBooks1(products);
 //        2.2
-//        findBooks2(products);
+//        findBooksAndApplyDiscount(products);
 //        3.3
 //        findCheapestBook(products);
 //        4.2
@@ -48,9 +48,10 @@ public class Main {
     }
 
     // Method for 2.2
-    public static void findBooks2(ArrayList<Product> products) {
+    public static void findBooksAndApplyDiscount(ArrayList<Product> products) {
         ArrayList<Product> foundBooks = products.stream()
-                .filter(item -> (item.getType().equals("Book") && item.getDiscount() == 10))
+                .filter(item -> (item.getType().equals("Book")))
+                .peek(item -> item.setDiscount(10))
                 .collect(Collectors.toCollection(ArrayList::new));
         System.out.println(foundBooks);
     }
@@ -60,7 +61,11 @@ public class Main {
         Optional<Product> cheapestBook = products.stream()
                 .filter(item -> item.getType().equals("Book"))
                 .min(Comparator.comparingInt(Product::getPrice));
-        cheapestBook.ifPresentOrElse(System.out::println, () -> System.out.println("Product Book did not found"));
+        if (cheapestBook.isPresent()) {
+            System.out.println(cheapestBook.get());
+        } else {
+            throw new NoSuchElementException("Cheapest book not found");
+        }
     }
 
     // Method for 4.2

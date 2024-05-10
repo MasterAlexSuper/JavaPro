@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Product {
-    private String type;
+    private final String type;
     private int price;
     private int discount;
     private final LocalDateTime creationDate = LocalDateTime.now();
@@ -29,12 +29,8 @@ public class Product {
         return price;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setPrice(int price) {
-        this.price = price;
+        this.price = price - price * discount / 100;
     }
 
     public int getDiscount() {
@@ -43,6 +39,7 @@ public class Product {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+        this.price = price - price * discount / 100;
     }
 
     public LocalDateTime getCreationDate() {
