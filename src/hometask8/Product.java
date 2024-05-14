@@ -5,23 +5,30 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Product {
-    private final String type;
+    private final ProductType type;
     private int price;
     private int discount;
     private final LocalDateTime creationDate = LocalDateTime.now();
 
-    public Product(String type, int price, int discount) {
+    public enum ProductType {
+        Book,
+        Toy,
+        Bike,
+        Car
+    }
+
+    public Product(ProductType type, int price, int discount) {
         this.type = type;
         this.price = price - price * discount / 100;
         this.discount = discount;
     }
 
-    public Product(String type, int price) {
+    public Product(ProductType type, int price) {
         this.type = type;
         this.price = price;
     }
 
-    public String getType() {
+    public ProductType getType() {
         return type;
     }
 

@@ -8,22 +8,22 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product("Book", 300, 2));
+        products.add(new Product(Product.ProductType.Book, 300, 2));
         Thread.sleep(1000);
-        products.add(new Product("Book", 10, 10));
+        products.add(new Product(Product.ProductType.Book, 10, 10));
         Thread.sleep(1000);
-        products.add(new Product("Bike", 200, 15));
+        products.add(new Product(Product.ProductType.Book, 200, 15));
         Thread.sleep(1000);
-        products.add(new Product("Book", 150, 7));
+        products.add(new Product(Product.ProductType.Bike, 150, 7));
         Thread.sleep(1000);
-        products.add(new Product("Car", 250, 3));
+        products.add(new Product(Product.ProductType.Car, 250, 3));
         Thread.sleep(1000);
-        products.add(new Product("Book", 30, 4));
+        products.add(new Product(Product.ProductType.Book, 30, 4));
         Thread.sleep(1000);
-        products.add(new Product("toy", 250, 20));
+        products.add(new Product(Product.ProductType.Toy, 250, 20));
         Thread.sleep(1000);
-        products.add(new Product("Book", 1000, 20));
-        products.add(new Product("Book", 500, 10));
+        products.add(new Product(Product.ProductType.Book, 1000, 20));
+        products.add(new Product(Product.ProductType.Book, 500, 10));
 
 //        1.2
 //        findBooks1(products);
@@ -42,16 +42,16 @@ public class Main {
     // Method for 1.2
     public static void findBooks1(ArrayList<Product> products) {
         ArrayList<Product> foundBooks = products.stream()
-                .filter(item -> (item.getType().equals("Book") && item.getPrice() > 250))
+                .filter(item -> (item.getType() == Product.ProductType.Book && item.getPrice() > 250))
                 .collect(Collectors.toCollection(ArrayList::new));
         System.out.println(foundBooks);
     }
 
     // Method for 2.2
-    public static void findBooksAndApplyDiscount(ArrayList<Product> products) {
+    public static void findBooksAndApplyDiscount(ArrayList<Product> products, int discount) {
         ArrayList<Product> foundBooks = products.stream()
-                .filter(item -> (item.getType().equals("Book")))
-                .peek(item -> item.setDiscount(10))
+                .filter(item -> item.getType() == Product.ProductType.Book)
+                .peek(item -> item.setDiscount(discount))
                 .collect(Collectors.toCollection(ArrayList::new));
         System.out.println(foundBooks);
     }
@@ -59,7 +59,7 @@ public class Main {
     //Method for 3.3
     public static void findCheapestBook(ArrayList<Product> products) {
         Optional<Product> cheapestBook = products.stream()
-                .filter(item -> item.getType().equals("Book"))
+                .filter(item -> item.getType() == Product.ProductType.Book)
                 .min(Comparator.comparingInt(Product::getPrice));
         if (cheapestBook.isPresent()) {
             System.out.println(cheapestBook.get());
@@ -83,14 +83,14 @@ public class Main {
     public static void sumOfCertainProducts(ArrayList<Product> products) {
         Year currentYear = Year.now();
         int totalPrice = products.stream()
-                .filter(item -> (item.getType().equals("Book") && item.getPrice() <= 75 && item.getCreationDate().getYear() == currentYear.getValue()))
+                .filter(item -> (item.getType() == Product.ProductType.Book && item.getPrice() <= 75 && item.getCreationDate().getYear() == currentYear.getValue()))
                 .mapToInt(Product::getPrice)
                 .sum();
         System.out.println("Total price: " + totalPrice);
     }
 
     public static void groupProducts(ArrayList<Product> products) {
-        Map<String, List<Product>> grouped = products.stream()
+        Map<Product.ProductType, List<Product>> grouped = products.stream()
                 .collect(Collectors.groupingBy(Product::getType));
         System.out.println(grouped);
 
