@@ -49,10 +49,10 @@ public class Main {
 
     // Method for 2.2
     public static void findBooksAndApplyDiscount(ArrayList<Product> products, int discount) {
-        ArrayList<Product> foundBooks = products.stream()
+        List<Product> foundBooks = products.stream()
                 .filter(item -> item.getType() == Product.ProductType.Book)
                 .peek(item -> item.setDiscount(discount))
-                .collect(Collectors.toCollection(ArrayList::new));
+                .collect(Collectors.toList());
         System.out.println(foundBooks);
     }
 
