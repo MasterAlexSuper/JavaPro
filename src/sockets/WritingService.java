@@ -3,32 +3,21 @@ package sockets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
-public class WritingService implements Runnable {
-    private final Socket socket;
+public class WritingService {
+    PrintWriter output;
 
     public WritingService(Socket socket) {
-        this.socket = socket;
-    }
-
-    @Override
-    public void run() {
         try {
-            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-            Scanner scanner = new Scanner(System.in);
-            output.println(Messages.message.greetings.send());
-            String serverMessege;
-            while (true) {
-                serverMessege = scanner.nextLine();
-                if (serverMessege.equals("exit")) {
-                    socket.close();
-                    break;
-                }
-                output.println("Server: " + serverMessege);
-            }
+            output = new PrintWriter(socket.getOutputStream(), true);
+            output.println(Message.text.GREETINGS.get());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    public void write(String message) {
+        output.println(message);
+    }
+
 }
